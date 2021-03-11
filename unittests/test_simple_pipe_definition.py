@@ -9,8 +9,8 @@ def dag(dagbag):
 
 class TestSimplePipeDefinition:
 
-    EXPECTED_NB_TASKS = 3
-    EXPECTED_TASKS = ['parsing', 'processing', 'storing']
+    EXPECTED_NB_TASKS = 2
+    EXPECTED_TASKS = ['parsing', 'processing']
 
     compare = lambda self, x, y: collections.Counter(x) == collections.Counter(y)
 
@@ -31,8 +31,7 @@ class TestSimplePipeDefinition:
     @pytest.mark.parametrize("task, expected_upstream, expected_downstream", 
         [
             ("parsing", [], ["processing"]), 
-            ("processing", ["parsing"], ["storing"]), 
-            ("storing", ["processing"], [])
+            ("processing", ["parsing"])
         ]
     )
     def test_dependencies_of_tasks(self, dag, task, expected_upstream, expected_downstream):
